@@ -1,0 +1,337 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover">
+	<title>OrganizUCM</title>
+	
+	<!-- css Boostrap -->
+	<link rel='stylesheet' href='js/css/bootstrap.min.css'>
+	<!-- or css created -->
+	<link rel='stylesheet' href='css/style.css' />
+	
+	<!-- javaScript jquery -->
+	<script src='js/jquery-3.3.1.min.js'></script>
+	<!-- javaScript Boostrap -->
+	<script src='js/js/bootstrap.min.js'></script>
+	
+	<!-- Initial script with global variables. Hide all div, except login. Show message in console.-->
+	<script>
+	  	//global variable
+	  	var id_stdnt = null;
+	  	var token = null;
+	  	var server_addr="http://192.168.1.104/";
+	  	//var server_addr="http://localhost/";
+	    
+	  	$( document ).ready(function() {
+	  		fadeOut_all('#login_error');
+	  		fadeOut_all('#error_generic');
+	  		fadeOut_all('#deliveries_pending');
+	  		fadeOut_all('#buttons_header_others');
+	  		fadeOut_all('#deliveries_completed');
+	  		fadeOut_all('#one_dlv_pending');
+	  		fadeOut_all('#one_sbj');
+	  		fadeOut_all('#one_tch');
+	  		fadeOut_all('#list_subjects');
+	  		fadeOut_all('#list_teachers');
+	  		fadeOut_all('#personal_data');
+	  		fadeOut_all('#edit_password');
+	  		fadeOut_all('#one_dlv_completed');
+	  		fadeOut_all('#confirm_edit');
+	        console.log('Documento creado');
+	    });
+    </script>
+    
+</head>
+<body>
+
+	<!-- scripts created -->
+	<script src='js/container.js'></script>
+	<script src='js/utils.js'></script>
+	
+	<!-- div shows the login form, image and application title-->
+	<div id='page_login'>
+		<div id='imagen'>
+			<img id="logo" src="img/UCM_Logo.png" alt="UCM">
+		</div>
+		
+		
+		<div id='login'>
+			<div id='name_app'>
+				<h1>OrganizUcm</h1>
+			</div>
+			
+			<form id='login_form' action='' method='post' autocomplete='on'>
+				
+				<div class="input-group">
+			      <span class="input-group-addon"><i class="glyphicon glyphicon-user" style="color:#B71234;"></i></span>
+			      <input type='email' id='mail' name='mail' placeholder='alumno@ucm.es' class='form-control'/>
+			    </div>
+			    
+			    <div class="input-group">
+			      <span class="input-group-addon"><i class="glyphicon glyphicon-lock" style="color:#B71234;"></i></span>
+			      <input type='password' id='passw' name='passw' placeholder='contrase&ntilde;a' class='form-control'/>
+			    </div>
+			    
+			    <div id='login_error'>
+					<p>Error: Usuario o contraseña incorrectos.</p>
+				</div>
+			    
+			    <button type='submit' class='btn btn-primary' class='large-centered'>
+		          <span class='glyphicon glyphicon-log-in'></span> Log in
+		        </button>
+			</form>
+		</div>
+	</div>
+
+
+	<!-- initial div to show the pending tasks and the header of the main page-->
+	<div id='deliveries_pending'>
+		
+		<!-- the header of the main page-->
+		<div id='dlv_pending' class='page-header'>	
+			<div id='buttons_header'>
+				<div id='menu'  class='btn btn-default pull-left'>
+					<span class='glyphicon glyphicon-align-justify' onclick="openNav()"></span>
+				</div>
+				
+				<div id='img-right'>
+					<img id="logo-right" src="img/UCM_Logo.png" alt="UCM">
+				</div>
+				
+			</div>	
+				
+			<h1>Lista pendientes</h1>
+		</div>
+		
+		<!-- menu of the header of the main page-->
+		<div id="mySidenav" class="sidenav">
+			 <div id='imagen_menu'>
+			 	<img id="logo_menu" src="img/UCM_Logo.png" alt="UCM">
+			 </div>
+			 <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			 <button onclick="read_deliveries_completed(id_stdnt)">
+				<span class='glyphicon glyphicon-list'></span>	Lista terminadas 
+			 </button>
+			 <button onclick='read_subjects(id_stdnt)'>
+			 	 <span class='glyphicon glyphicon-book'></span>	Asignaturas 
+			 </button>
+			 <button onclick='read_teachers(id_stdnt)'>
+			 	 <span class='glyphicon glyphicon-blackboard'></span>	Profesores 
+			 </button>
+			 <button onclick='personal_information(id_stdnt)'>
+			 	<span class='glyphicon glyphicon-user'></span>	Datos personales 
+			 </button>
+			 <button onclick='edit_passw(id_stdnt)'>
+			 	 <span class='glyphicon glyphicon-lock'></span>	Editar contraseña 
+			 </button>
+			 <button id='log_out' onclick='exit_app()'>
+				<span class='glyphicon glyphicon-log-out'></span>	Salir 
+			</button>
+		</div>
+		
+		
+		<!-- div where is the content of the main page-->
+		<div id='container_p' >
+		</div>	
+	</div>
+	
+	<!-- div where is the content of the one task pending-->
+	<div id="one_dlv_pending"></div>
+	
+	<!-- div where the content of the "List completed" window is located-->
+	<div id="deliveries_completed">
+		
+		<div id='dlv_completed' class='page-header'>
+			<div id='buttons_header_others'>
+        		<div id='home' class='btn btn-default pull-left' onclick='go_home()'>
+					<span class='glyphicon glyphicon-home'></span>
+				</div>
+			
+				<div id='img-right'> 
+					<img id='logo-right' src='img/UCM_Logo.png' alt='UCM'>
+				</div>
+			</div>			
+			<h1>Lista terminadas</h1>
+		</div>
+		
+		<div id='container_c'>
+		</div>	
+	</div>
+	
+	<!-- div where is the content of the one task completed-->
+	<div id="one_dlv_completed"></div>
+	
+	<!-- div where is the content of the one subject-->
+	<div id="one_sbj"></div>
+	
+	<!-- div where the content of the "List subjects" window is located-->
+	<div id="list_subjects"></div>
+	
+	<!-- div where is the content of the one teacher-->
+	<div id="one_tch"></div>
+	
+	<!-- div where the content of the "List teachers" window is located-->
+	<div id="list_teachers"></div>
+	
+	<!-- div where the content of the "Personal information" window is located-->
+	<div id="personal_data"></div>
+	
+	<!--div that contains the form to edit the password-->
+	<div id="edit_password">
+		<div id='ed_passw' class='page-header'>	
+			<div id='buttons_header_others'>
+        		<div id='home' class='btn btn-default pull-left' onclick='go_home()'>
+					<span class='glyphicon glyphicon-home'></span>
+				</div>
+			
+				<div id='img-right'> 
+					<img id='logo-right' src='img/UCM_Logo.png' alt='UCM'>
+				</div>
+			</div>		
+			<h1>Editar contraseña</h1>
+		</div>
+		
+		<div id="form_edit">
+			<form id='edit_form' action='' method='post'>
+					<fieldset>
+					<p>
+						<label>Antigua contrase&ntilde;a:</label> 
+						<input type='password' id='passw_old' name='passw_old' placeholder='contrase&ntilde;a antigua' class='form-control'/>
+					</p>
+					<p>
+						<label>Contrase&ntilde;a nueva:</label> 
+						<input type='password' id='passw_new' name='passw_new' placeholder='contrase&ntilde;a nueva' class='form-control'/>
+					</p>
+					<p>
+						<label>Confirmacion de contrase&ntilde;a: </label> 
+						<input type='password' id='passw_confirm' name='passw_confirm' placeholder='confirmacion contrase&ntilde;a' class='form-control'/>
+					</p>
+				    
+				    <div id="confirm_edit">
+					</div>
+					
+				    <button id="btn_edit" type='submit' class="btn btn-primary">
+			          <span class="glyphicon glyphicon-edit"></span> Editar
+			        </button>
+				  	
+					</fieldset>
+			</form>
+		</div>
+	</div>
+	
+	<!--div that shows the message when error occurs-->
+	<div id="error_generic" class="alert alert-danger">
+		Ups! Ha habido un error. 
+		Vuelve a intentarlo mas tarde.
+	</div>
+
+	<script>
+	
+	//function to process the login
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('mail', $('#mail').val());
+        	data.append('passw', $('#passw').val());
+
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/api/login.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	var json = JSON.parse(data);
+                	
+                    if(json.status == 'ERROR') {
+                    	fadeIn_all('#login_error');
+                    }
+                    else {
+                    	fadeOut_all('#page_login');	
+                    	fadeOut_all('#login_error');
+                    	fadeOut_all('#error_generic');
+                    	fadeOut_all('#buttons_header_others');
+                    	fadeOut_all('#deliveries_completed');
+                    	fadeOut_all('#one_dlv_pending');
+                    	fadeOut_all('#one_sbj');
+                    	fadeOut_all('#one_tch');
+                    	fadeOut_all('#list_subjects');
+                    	fadeOut_all('#list_teachers');
+                    	fadeOut_all('#personal_data');
+                    	fadeOut_all('#edit_password');
+                    	fadeOut_all('#one_dlv_completed');
+                    	fadeOut_all('#confirm_edit');
+                    	fadeIn_all('#deliveries_pending');
+                    	
+                    	id_stdnt = json.id_stdnt;
+                    	token = json.token;
+  
+                    	read_deliveries(id_stdnt);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#login_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that edits the password
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_stdnt', id_stdnt);
+        	data.append('token', token);
+        	data.append('passw_old', $('#passw_old').val());
+        	data.append('passw_new', $('#passw_new').val());
+        	data.append('passw_confirm', $('#passw_confirm').val());
+
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/api/edit_passw.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	document.getElementById("edit_form").reset();
+                	
+                	var json = JSON.parse(data);
+                	
+                	console.log(json);
+                	
+                    if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_generic');
+                    }
+                    else {
+                    	fadeIn_all('#confirm_edit');
+
+                    	$('#confirm_edit').append(
+                    		"<div class='alert alert-success'>Contraseña edita con exito</div>"
+                    	);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#edit_form').submit( processForm );
+    })(jQuery);
+    
+    </script>
+</body>
+</html>

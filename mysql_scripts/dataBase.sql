@@ -1,0 +1,114 @@
+DROP TABLE IF EXISTS ORGANIZ_PRACTICAS.Faculty;
+DROP TABLE IF EXISTS ORGANIZ_PRACTICAS.Teacher;
+DROP TABLE IF EXISTS ORGANIZ_PRACTICAS.Studies;
+DROP TABLE IF EXISTS ORGANIZ_PRACTICAS.Student;
+DROP TABLE IF EXISTS ORGANIZ_PRACTICAS.Subject;
+DROP TABLE IF EXISTS ORGANIZ_PRACTICAS.Delivery;
+DROP TABLE IF EXISTS ORGANIZ_PRACTICAS.Note_Delivery;
+DROP TABLE IF EXISTS ORGANIZ_PRACTICAS.Teacher_Subject;
+DROP TABLE IF EXISTS ORGANIZ_PRACTICAS.Subject_Student;
+DROP TABLE IF EXISTS ORGANIZ_PRACTICAS.Teacher_Faculty;
+
+
+-- CREAR TABLAS
+CREATE TABLE ORGANIZ_PRACTICAS.Faculty (
+	id_fac INT(8) PRIMARY KEY AUTO_INCREMENT,
+	address VARCHAR(100) NOT NULL,
+	phone INT(9) NOT NULL,
+	postal_code INT(5) NOT NULL,
+	name_fac VARCHAR(100) UNIQUE NOT NULL
+);
+
+CREATE TABLE ORGANIZ_PRACTICAS.Teacher (
+	id_tch INT(8) PRIMARY KEY AUTO_INCREMENT,
+	name_tch VARCHAR(50) NOT NULL,
+	last_name_tch VARCHAR(50) NOT NULL,
+	mail VARCHAR(50) UNIQUE NOT NULL,
+	passw VARCHAR(60) NOT NULL,
+	office INT(3) NOT NULL
+);
+
+CREATE TABLE ORGANIZ_PRACTICAS.Studies (
+	id_stds INT(8) PRIMARY KEY AUTO_INCREMENT,
+	abbrev_stds VARCHAR(7) UNIQUE NOT NULL,
+	name_stds VARCHAR(100) NOT NULL,
+	fac INT(8) NOT NULL,
+	type_stds ENUM('grado', 'master', 'licenciatura') NOT NULL,
+	itinerary VARCHAR(50) DEFAULT NULL,
+	FOREIGN KEY (fac) REFERENCES ORGANIZ_PRACTICAS.Faculty (id_fac) on delete cascade
+);
+
+CREATE TABLE ORGANIZ_PRACTICAS.Student (
+	id_stdnt INT(8) PRIMARY KEY AUTO_INCREMENT,
+	name_stdnt VARCHAR(50) NOT NULL,
+	last_name_stdnt VARCHAR(50) NOT NULL,
+	mail VARCHAR(50) UNIQUE NOT NULL,
+	passw VARCHAR(60) NOT NULL,
+	stds INT(8) NOT NULL,
+	FOREIGN KEY(stds) REFERENCES ORGANIZ_PRACTICAS.Studies(id_stds) on delete cascade
+);
+
+CREATE TABLE ORGANIZ_PRACTICAS.Subject (
+	id_sbj INT(8) PRIMARY KEY AUTO_INCREMENT,
+	abbrev_sbj VARCHAR(7) NOT NULL,
+	name_sbj VARCHAR(100) NOT NULL,
+	credits INT NOT NULL,
+	course INT(1) NOT NULL,
+	group_sbj VARCHAR(1) NOT NULL DEFAULT 'A',
+	quarter ENUM('primer', 'segundo', 'anual') NOT NULL,
+	stds INT(8) NOT NULL,
+	FOREIGN KEY(stds) REFERENCES ORGANIZ_PRACTICAS.Studies(id_stds) on delete cascade,
+	CONSTRAINT rango_course CHECK (1 <= course  and course <= 5)
+);
+
+CREATE TABLE ORGANIZ_PRACTICAS.Delivery (
+	id_dlv INT(8) PRIMARY KEY AUTO_INCREMENT,
+	name_dlv VARCHAR(100) NOT NULL,
+	percent INT(3) NOT NULL,
+	rise_date TIMESTAMP NOT NULL,
+	deliver_date TIMESTAMP NOT NULL,
+	type_dlv ENUM('practica', 'ejercicio', 'proyecto', 'examen') NOT NULL,
+	tch_comment VARCHAR(150) DEFAULT NULL,
+	sbj INT(8) NOT NULL,
+	FOREIGN KEY (sbj) REFERENCES ORGANIZ_PRACTICAS.Subject (id_sbj) on delete cascade,
+	CONSTRAINT date_range CHECK(rise_date <=  deliver_date),
+	CONSTRAINT percent_range CHECK (0 <= percent  and percent <= 100)
+); 
+
+CREATE TABLE ORGANIZ_PRACTICAS.Note_Delivery (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	note INT(3) NOT NULL,
+	tch_comment_note VARCHAR(150) DEFAULT NULL,
+	dlv INT(8) NOT NULL,
+	stdnt INT(8) NOT NULL,
+	FOREIGN KEY (dlv) REFERENCES ORGANIZ_PRACTICAS.Delivery(id_dlv) on delete cascade,
+	FOREIGN KEY (stdnt) REFERENCES ORGANIZ_PRACTICAS.Student(id_stdnt) on delete cascade,
+	CONSTRAINT note_range CHECK (0 <= note  and note <= 100)
+);
+
+CREATE TABLE ORGANIZ_PRACTICAS.Teacher_Subject (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	tch INT(8) NOT NULL,
+	sbj INT(8) NOT NULL,
+	FOREIGN KEY (tch) REFERENCES ORGANIZ_PRACTICAS.Teacher (id_tch) on delete cascade,
+	FOREIGN KEY (sbj) REFERENCES ORGANIZ_PRACTICAS.Subject (id_sbj) on delete cascade
+);
+
+CREATE TABLE ORGANIZ_PRACTICAS.Subject_Student(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	regist_num INT(1) NOT NULL DEFAULT '1',
+	regist_year INT(4) NOT NULL,
+	stdnt INT(8) NOT NULL,
+	sbj INT(8) NOT NULL,
+	FOREIGN KEY (stdnt) REFERENCES ORGANIZ_PRACTICAS.Student (id_stdnt) on delete cascade,
+	FOREIGN KEY (sbj) REFERENCES ORGANIZ_PRACTICAS.Subject (id_sbj) on delete cascade
+);
+
+
+CREATE TABLE ORGANIZ_PRACTICAS.Teacher_Faculty (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	tch INT(8) NOT NULL,
+	fac INT(8) NOT NULL,
+	FOREIGN KEY (tch) REFERENCES ORGANIZ_PRACTICAS.Teacher (id_tch) on delete cascade,
+	FOREIGN KEY (fac) REFERENCES ORGANIZ_PRACTICAS.Faculty (id_fac) on delete cascade
+);

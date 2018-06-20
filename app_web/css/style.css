@@ -1,0 +1,225 @@
+@CHARSET "UTF-8";
+
+#logo{
+	height: 200px; 
+	width: 200px; 
+	display: block; 
+	margin:auto; 
+	margin-top:10px;
+}
+
+#login{
+	text-align:center;
+	margin: 10px 100px;
+}
+
+.page-header {
+	display: block;
+    padding-bottom: 9px;
+    margin: 40px 0 20px;
+    border-bottom: 1px solid #eee;
+}
+
+h1, h2{
+	margin-top: 20px;
+    margin-bottom: 10px;
+	text-align:center;
+}
+
+h3, #form_edit{
+	text-align: center;
+}
+
+.td_blue{
+	background-color: #d9edf7;
+}
+
+.td_green{
+	background-color: #dff0d8;
+}
+
+.td_red{
+	background-color: #f2dede;
+}
+
+#buttons_header_admin, #buttons_header_teacher{ 
+	margin-top: 2%; 
+}
+
+#buttons_header_others_admin, #buttons_header_others_teacher{
+	margin-top: 2%; 
+	margin-left: 7%; 
+	margin-right: 7%;
+}
+
+#btn_completed button, #btn_create_task button, #readAll, #btn_edit, #readAll_e, #delete, #btn_edit_passw button, #list_completed, #create_delivery{
+	margin-bottom: 5px; 
+	background-color: #B71234; 
+	border: 2px solid #B71234; 
+	color: white;
+}
+
+#action_compl{
+	width:30%;
+	text-align:center;
+}
+
+#action_compl button{
+	margin-right: 20px;
+}
+
+#create_fac, #create_tch, #create_stds, #create_stdnt, #create_sbj, #create_sbjStudent, 
+	#create_tchFac, #create_tchSbj, #readAll_c, #readAll_stdnt, #readAll_tch{
+	margin-bottom: 5px; 
+	background-color: white; 
+	border: 2px solid #B71234; 
+	color: #B71234;
+}
+
+
+#col-sm-4_1{
+	border: 2px solid #B71234; 
+	margin: 5px; 
+	margin-left: 200px; 
+	width: 180px; 
+	height: 150px;
+}
+
+#col-sm-4_2{
+	border: 2px solid #B71234; 
+	margin: 5px; 
+	margin-left:50px; 
+	width: 180px; 
+	height: 150px;
+}
+
+#col-sm-4_3{
+	border: 2px solid #B71234; 
+	margin: 5px; 
+	margin-top:50px; 
+	margin-left: 300px; 
+	width: 180px; 
+	height: 150px;
+}
+
+#col-sm-4_4{
+	border: 2px solid #B71234; 
+	margin: 5px; 
+	margin-top: 50px; 
+	margin-left: 50px; 
+	width: 180px; 
+	height: 150px;
+}
+
+#icon{
+	height: 50px; 
+	width: 50px; 
+	margin:20px auto; 
+	display:block;
+}
+
+th{
+ 	background-color: #B71234;
+ 	color: white;
+}
+tr:nth-child(odd) {
+	background-color:#fbfbfb;
+}
+tr:nth-child(even) {
+	background-color:#f2f2f2;
+}
+
+#homepage_admin, #homepage_tch{
+	padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+a{
+	color: #B71234;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #B71234;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav button, .dropdown-btn{
+    padding: 6px 8px 6px 30px;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    display: block;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+}
+
+#btn_close_admin, #btn_close_teacher{
+	float:left;
+	color: white;
+	margin-left: 25px;
+}
+
+.dropdown-btn:hover {
+    color: #B71234;
+    background-color: white;
+}
+
+.active{
+	 background-color: white;
+ 			 color: #B71234;
+}
+
+.dropdown-container {
+    display: none;
+    padding-left: 8px;
+}
+
+.fa-caret-down {
+    float: right;
+    padding-right: 8px;
+}
+		
+.sidenav .closebtn {
+    position: relative;
+    float:right;
+    font-size: 36px;
+}

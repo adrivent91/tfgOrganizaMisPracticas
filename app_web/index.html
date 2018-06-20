@@ -1,0 +1,2372 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>OrganizUCM</title>
+
+	
+ 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- css Boostrap -->
+	<link rel='stylesheet' href='js/css/bootstrap.min.css'>
+	<!-- css created -->
+	<link rel='stylesheet' href='css/style.css' />
+	
+	<script src='js/jquery-3.3.1.min.js'></script>
+	<script src='js/js/bootstrap.min.js'></script>
+	
+	<script>
+	  	//global variable
+	  	var id_tch = null;
+	  	var token = null;
+	  	var server_addr="http://192.168.1.137/";
+	  	//var server_addr="http://localhost/";
+	    
+	  	$( document ).ready(function() {
+	  		//common
+	  		fadeOut_all('#login_error');
+	  		fadeOut_all('#error_generic');
+	  		fadeOut_all('#edit_pass');
+	  		//admin
+	  		fadeOut_all('#homepage_admin');
+	  		fadeOut_all('#buttons_header_others_admin');
+	  		
+	  		fadeOut_all('#list_faculty_admin');
+	  		fadeOut_all('#list_teacher_admin');
+	  		fadeOut_all('#list_student_admin');
+	  		fadeOut_all('#list_subject_admin');
+	  		fadeOut_all('#list_studies_admin');
+	  		fadeOut_all('#list_sbjStudent_admin');
+	  		fadeOut_all('#list_tchSubject_admin');
+	  		fadeOut_all('#list_tchFaculty_admin');
+	  		fadeOut_all('#list_tchStudent_admin');
+	  		fadeOut_all('#list_facStudent_admin');
+	  		
+	  		fadeOut_all('#one_faculty_admin');
+			fadeOut_all('#one_teacher_admin');
+			fadeOut_all('#one_student_admin');
+			fadeOut_all('#one_subject_admin');
+			fadeOut_all('#one_studies_admin');
+			fadeOut_all('#one_sbjStudent_admin');
+			fadeOut_all('#one_tchSubject_admin');
+			fadeOut_all('#one_tchFaculty_admin');
+			
+			fadeOut_all('#create_faculty_admin');
+			fadeOut_all('#create_teacher_admin');
+			fadeOut_all('#create_student_admin');
+			fadeOut_all('#create_subject_admin');
+			fadeOut_all('#create_studies_admin');
+			fadeOut_all('#create_sbjStudent_admin');
+			fadeOut_all('#create_tchSubject_admin');
+			fadeOut_all('#create_tchFaculty_admin');
+			
+			fadeOut_all('#edit_faculty_admin');
+			fadeOut_all('#edit_teacher_admin');
+			fadeOut_all('#edit_student_admin');
+			fadeOut_all('#edit_subject_admin');
+			fadeOut_all('#edit_studies_admin');
+			fadeOut_all('#edit_sbjStudent_admin');
+			fadeOut_all('#edit_tchSubject_admin');
+			fadeOut_all('#edit_tchFaculty_admin');
+			
+			fadeOut_all('#delete_faculty_admin');
+			fadeOut_all('#delete_teacher_admin');
+			fadeOut_all('#delete_student_admin');
+			fadeOut_all('#delete_subject_admin');
+			fadeOut_all('#delete_studies_admin');
+			fadeOut_all('#delete_sbjStudent_admin');
+			fadeOut_all('#delete_tchSubject_admin');
+			fadeOut_all('#delete_tchFaculty_admin');
+			
+	  		//teacher
+	  		fadeOut_all('#homepage_teacher');
+	  		fadeOut_all('#buttons_header_others_teacher');
+	  		fadeOut_all('#personal_data');
+	  		fadeOut_all("#list_subjects_tch");
+	  		fadeOut_all("#one_delivery_teacher");
+	  		fadeOut_all("#one_delivery_compl_teacher");
+	  		fadeOut_all('#create_delivery_teacher');
+	  		fadeOut_all('#edit_delivery_teacher');
+	  		fadeOut_all('#delete_delivery_teacher');
+	  		fadeOut_all("#one_subject_tch");
+	  		fadeOut_all("#list_students_tch");
+	  		fadeOut_all("#one_student_tch");
+	  		fadeOut_all("#one_evaluate_tch");
+			fadeOut_all("#edit_evaluate_tch");
+			fadeOut_all('#delete_evaluate_teacher');		
+	  	
+	        console.log('Documento creado');
+	    });
+    </script>
+	
+</head>
+<body>
+	<script src='js/container_common.js'></script>
+	<script src='js/container_admin.js'></script>
+	<script src='js/container_teacher.js'></script>
+	<script src='js/utils.js'></script>
+	
+	
+	<!--ADMIN-->
+	<div id="homepage_admin" class="container">
+		<div id='buttons_header_admin'>
+			<div id='menu_admin'  class='btn btn-default pull-left'>
+				<span onclick="openNav_admin()">&#9776;</span>
+			</div>
+			
+			<button id='log_out' class='btn btn-default pull-right' onclick='exit_web()'>
+				<span class='glyphicon glyphicon-log-out'></span>
+			</button>
+		</div>		
+		
+		<div class='page-header'>	
+			<h1>Bienvenido administrador</h1>
+		</div>
+		
+		
+		<div id="mySidenav_admin" class="sidenav">
+			 <a id="btn_close_admin" href="javascript:void(0)" class="closebtn" onclick="closeNav_admin()">&times;</a>
+			 <button onclick='edit_passw_admin(id_tch)'> 
+			 	<span></span>Editar contraseña
+			 </button>
+			 <button class="dropdown-btn">Acceder
+			    <i class="glyphicon glyphicon-triangle-bottom"></i>
+			  </button>
+			  <div class="dropdown-container">
+				 <button onclick='read_sbjStudent()'>
+				 	 <span></span> Asignaturas - Alumnos
+				 </button>
+				 <button onclick='read_tchSubject()'>
+				 	 <span></span> Profesores - Asignaturas
+				 </button>
+				 <button onclick='read_tchFaculty()'>
+				 	 <span></span> Profesores - Facultades
+				 </button>
+			  </div>
+			  <button class="dropdown-btn">Otras relaciones
+			    <i class="glyphicon glyphicon-triangle-bottom"></i>
+			  </button>
+			  <div class="dropdown-container">
+			  	<button onclick='read_facStudent()'>
+				 	 <span></span> Facultades - Alumnos
+				 </button>
+				 <button onclick='read_tchStudent()'>
+				 	 <span></span> Profesores - Alumnos
+				 </button>
+			  </div>
+		</div>
+		
+		<div id="main_admin">
+			<div class="container">
+			  	<div class="row">
+				    <div id="col-sm-4_1" class="col-sm-4">
+				      <img id="icon" src="img/facultad-icon.png" alt="Icon-facultad">
+				      <h3>
+					      <a onclick='read_faculty()'>
+					      	Facultades
+					      </a>
+				      </h3>
+				    </div>
+				    
+				    <div id="col-sm-4_2" class="col-sm-4">
+				      <img id="icon" src="img/Profesor-icon.png" alt="Icon-profesor">
+				      <h3>
+					      <a onclick='read_teacher()'>
+					        Profesores
+					      </a>
+				      </h3>
+				    </div>
+				    
+				    <div id="col-sm-4_2" class="col-sm-4">
+				      <img id="icon" src="img/Estudios-icon.png" alt="Icon-estudios">
+				   	  <h3>
+					      <a onclick='read_studies()'>
+					        Estudios
+					      </a>
+					  </h3>
+				    </div>
+			 	</div> 
+			  <div class="row">
+				    <div id="col-sm-4_3" class="col-sm-4">
+				      <img id="icon" src="img/Estudiante-icon.png" alt="Icon-alumno">
+				   	  <h3>
+					      <a onclick='read_student()'>
+					        Alumnos
+					      </a>
+					  </h3>
+				    </div>
+				
+				    <div id="col-sm-4_4" class="col-sm-4">
+				      <img id="icon" src="img/asignatura-icon.png" alt="Icon-asignatura">
+				   	  <h3>
+					      <a onclick='read_subject()'>
+					        Asignaturas
+					      </a>
+					  </h3>
+				    </div>
+			    </div>
+			  </div>
+		</div>
+	</div>
+	
+	<div id='buttons_header_others_admin'>
+		<button id='home_admin' class='btn btn-default pull-left' onclick='go_home_admin(id_tch)'>
+			<span class='glyphicon glyphicon-home'></span>
+		</button>
+		
+		<button id='log_out' class='btn btn-default pull-right' onclick='exit_web()'>
+			<span class='glyphicon glyphicon-log-out'></span>
+		</button>
+	</div>
+	
+	<!--ADMIN-FACULTY-->
+	<div id="list_faculty_admin" class="container">
+	</div>
+	
+	<div id="one_faculty_admin" class="container">
+	</div>
+	
+	<div id="create_faculty_admin" class="container">
+		<div class='page-header'>
+			<h1>Crear facultad</h1>
+		</div>
+		<div>
+			<button id='readAll_c' class='btn btn-default pull-right' onclick='read_faculty()'>
+				<span class='glyphicon glyphicon-list'></span> Ver facultades
+			</button>
+		</div>
+		<form id='create_faculty_form' action='' method='post'>
+			 <table class='table table-hover table-responsive table-bordered'>
+	 
+	 			<tr>
+	            	<td>Nombre</td>
+	            	<td><input type='text' id='name_fac_create' name='name_fac_create' class='form-control' /></td>
+	        	</tr>
+	        
+	        	<tr>
+	            	<td>Direccion</td>
+	            	<td><input type='text' id='address_create' name='address_create' class='form-control' /></td>
+	       		</tr>
+	 
+	       		<tr>
+	            	<td>Telefono</td>
+	            	<td><input type='number' id='phone_create' name='phone_create' class='form-control' /></td>
+	        	</tr>
+	 
+	       	 	<tr>
+	            	<td>Codigo postal</td>
+	            	<td><input type='number' id='postal_code_create' name='postal_code_create' class='form-control' /></td>
+	        	</tr>
+	 
+	        	<tr>
+	           		<td></td>
+	            	<td>
+	                	<button type="submit" class="btn btn-primary">Crear</button>
+	            	</td>
+	      		</tr>
+	    	</table>
+		</form>
+		
+		<div id='confirm_create_fac'></div>
+		
+		<div id='error_create_fac'></div>
+		
+	</div>
+	
+	<div id="edit_faculty_admin" class="container">
+		<div class='page-header'>
+			<h1>Editar facultad</h1>
+		</div>
+		<div>
+			<button id='readAll_e' class='btn btn-default pull-right' onclick='read_faculty()'>
+				<span class='glyphicon glyphicon-list'></span> Ver facultades
+			</button>
+		</div>
+		<form id='edit_faculty_form' action='' method='post'>
+		</form>
+		
+		<div id='confirm_edit_fac'>
+		</div>
+	
+		<div id='error_edit_fac'>
+		</div>
+	</div>
+	
+	<div id="delete_faculty_admin" class="container">
+	</div>
+	
+	<!--ADMIN-TEACHER-->
+	<div id="list_teacher_admin" class="container">
+	</div>
+	
+	<div id="one_teacher_admin" class="container">
+	</div>
+	
+	<div id="create_teacher_admin" class="container">
+		<div class='page-header'>
+			<h1>Crear profesor</h1>
+		</div>
+		<div>
+			<button id='readAll_tch' class='btn btn-default pull-right' onclick='read_teacher()'>
+				<span class='glyphicon glyphicon-list'></span> Ver profesores
+			</button>
+		</div>
+		<form id='create_teacher_form' action='' method='post'>
+			 <table class='table table-hover table-responsive table-bordered'>
+	 
+	 			<tr>
+	            	<td>Nombre</td>
+	            	<td><input type='text' id='name_tch_create' name='name_tch_create' class='form-control' /></td>
+	        	</tr>
+	        
+	        	<tr>
+	            	<td>Apellido</td>
+	            	<td><input type='text' id='last_name_tch_create' name='last_name_tch_create' class='form-control' /></td>
+	       		</tr>
+	 
+	       		<tr>
+	            	<td>Correo</td>
+	            	<td><input type='email' id='mail_tch_create' name='mail_tch_create' class='form-control' /></td>
+	        	</tr>
+	 
+	 			<tr>
+	            	<td>Contrase&ntilde;a:</td>
+	            	<td><input type='password' id='passw_tch_create' name='passw_tch_create' class='form-control' /></td>
+	        	</tr>
+	        	
+	       	 	<tr>
+	            	<td>Despacho</td>
+	            	<td><input type='number' id='office_tch_create' name='office_tch_create' class='form-control' /></td>
+	        	</tr>
+	 
+	        	<tr>
+	           		<td></td>
+	            	<td>
+	                	<button type="submit" class="btn btn-primary">Crear</button>
+	            	</td>
+	      		</tr>
+	    	</table>
+		</form>
+		
+		<div id='confirm_create_tch'></div>
+		
+		<div id='error_create_tch'></div>
+	</div>
+	
+	<div id="edit_teacher_admin" class="container">
+		<div class='page-header'>
+			<h1>Editar profesor</h1>
+		</div>
+		<div>
+			<button id='readAll_e' class='btn btn-default pull-right' onclick='read_teacher()'>
+				<span class='glyphicon glyphicon-list'></span> Ver profesores
+			</button>
+		</div>
+		<form id='edit_teacher_form' action='' method='post'>
+		</form>
+		
+		<div id='confirm_edit_tch'>
+		</div>
+	
+		<div id='error_edit_tch'>
+		</div>
+	</div>
+	
+	<div id="delete_teacher_admin" class="container">
+	</div>
+	
+	<!--ADMIN-STUDENT-->
+	<div id="list_student_admin" class="container">
+	</div>
+	
+	<div id="one_student_admin" class="container">
+	</div>
+	
+	<div id="create_student_admin" class="container">
+		<div class='page-header'>
+			<h1>Crear alumno</h1>
+		</div>
+		<div>
+			<button id='readAll_stdnt' class='btn btn-default pull-right' onclick='read_student()'>
+				<span class='glyphicon glyphicon-list'></span> Ver alumnos
+			</button>
+		</div>
+		<form id='create_student_form' action='' method='post'>
+			 <table class='table table-hover table-responsive table-bordered'>
+	 
+	 			<tr>
+	            	<td>Nombre</td>
+	            	<td><input type='text' id='name_stdnt_create' name='name_stdnt_create' class='form-control' /></td>
+	        	</tr>
+	        
+	        	<tr>
+	            	<td>Apellido</td>
+	            	<td><input type='text' id='last_name_stdnt_create' name='last_name_stdnt_create' class='form-control' /></td>
+	       		</tr>
+	 
+	       		<tr>
+	            	<td>Correo</td>
+	            	<td><input type='email' id='mail_stdnt_create' name='mail_stdnt_create' class='form-control' /></td>
+	        	</tr>
+	 
+	 			<tr>
+	            	<td>Contrase&ntilde;a:</td>
+	            	<td><input type='password' id='passw_stdnt_create' name='passw_stdnt_create' class='form-control' /></td>
+	        	</tr>
+	        	
+	       	 	<tr>
+	            	<td>Estudios</td>
+	            	<td id='td_studies_stdnt'>
+	            	
+	           		</td>
+	        	</tr>
+	 
+	        	<tr>
+	           		<td></td>
+	            	<td>
+	                	<button type="submit" class="btn btn-primary">Crear</button>
+	            	</td>
+	      		</tr>
+	    	</table>
+		</form>
+		
+		<div id='confirm_create_stdnt'></div>
+		
+		<div id='error_create_stdnt'></div>
+	</div>
+	
+	<div id="edit_student_admin" class="container">
+		<div class='page-header'>
+			<h1>Editar alumno</h1>
+		</div>
+		<div>
+			<button id='readAll_e' class='btn btn-default pull-right' onclick='read_student()'>
+				<span class='glyphicon glyphicon-list'></span> Ver alumnos
+			</button>
+		</div>
+		<form id='edit_student_form' action='' method='post'>
+		</form>
+		
+		<div id='confirm_edit_stdnt'>
+		</div>
+	
+		<div id='error_edit_stdnt'>
+		</div>
+	</div>
+	
+	<div id="delete_student_admin" class="container">
+	</div>
+	
+	<!--ADMIN-STUDIES-->
+	<div id="list_studies_admin" class="container">
+	</div>
+	
+	<div id="one_studies_admin" class="container">
+	</div>
+	
+	<div id="create_studies_admin" class="container">
+		<div class='page-header'>
+			<h1>Crear estudio</h1>
+		</div>
+		<div>
+			<button id='readAll_c' class='btn btn-default pull-right' onclick='read_studies()'>
+				<span class='glyphicon glyphicon-list'></span> Ver estudios
+			</button>
+		</div>
+		<form id='create_studies_form' action='' method='post'>
+			 <table class='table table-hover table-responsive table-bordered'>
+	 
+	 			<tr>
+	            	<td>Abreviatura</td>
+	            	<td><input type='text' id='abbrev_stds_create' name='abbrev_stds_create' class='form-control' /></td>
+	       	 	</tr>
+	 
+	       	 	<tr>
+	            	<td>Nombre</td>
+	            	<td><input type='text' id='name_stds_create' name='name_stds_create' class='form-control' /></td>
+	        	</tr>
+	        
+	       		<tr>
+	            	<td>Tipo de estudio</td>
+	            	<td>
+					<select class='form-control' id='type_stds_create' name='type_stds_create'>
+						<option>Seleccionar tipo de estudio...</option>
+						<option value="grado"> Grado </option>
+					  	<option value="master"> Master </option>
+					  	<option value="licenciatura"> Licenciatura </option>
+					 </select>
+					</td>
+	            </tr>
+	        	
+	        	<tr>
+	            	<td>Itinerario</td>
+	            	<td><input type='text' id='itinerary_create' name='itinerary_create'  placeholder='Por defecto: NULL' class='form-control' /></td> 
+	        	</tr>
+	        
+	       	 	<tr>
+	            	<td>Facultad</td>
+	            	<td id='td_faculties_stds'>
+	            	
+	           		</td>
+	        	</tr>
+	 
+	        	<tr>
+	           		<td></td>
+	            	<td>
+	                	<button type="submit" class="btn btn-primary">Crear</button>
+	            	</td>
+	      		</tr>
+	    	</table>
+		</form>
+		
+		<div id='confirm_create_stds'></div>
+		
+		<div id='error_create_stds'></div>
+	</div>
+	
+	<div id="edit_studies_admin" class="container">
+		<div class='page-header'>
+			<h1>Editar estudio</h1>
+		</div>
+		<div>
+			<button id='readAll_e' class='btn btn-default pull-right' onclick='read_studies()'>
+				<span class='glyphicon glyphicon-list'></span> Ver estudios
+			</button>
+		</div>
+		<form id='edit_studies_form' action='' method='post'>
+		</form>
+		
+		<div id='confirm_edit_stds'>
+		</div>
+	
+		<div id='error_edit_stds'>
+		</div>
+	</div>
+	
+	<div id="delete_studies_admin" class="container">
+	</div>
+	
+	<!--ADMIN-SUBJECT-->
+	<div id="list_subject_admin" class="container">
+	</div>
+	
+	<div id="one_subject_admin" class="container">
+	</div>
+	
+	<div id="create_subject_admin" class="container">
+		<div class='page-header'>
+			<h1>Crear asignatura</h1>
+		</div>
+		<div>
+			<button id='readAll_c' class='btn btn-default pull-right' onclick='read_subject()'>
+				<span class='glyphicon glyphicon-list'></span> Ver asignaturas
+			</button>
+		</div>
+		<form id='create_subject_form' action='' method='post'>
+			 <table class='table table-hover table-responsive table-bordered'>
+	 
+	 		<tr>
+	            <td>Abreviatura</td>
+	            <td><input type='text' id='abbrev_sbj_create' name='abbrev_sbj_create' class='form-control' /></td>
+	        </tr>
+	 
+	        <tr>
+	            <td>Nombre</td>
+	            <td><input type='text' id='name_sbj_create' name='name_sbj_create' class='form-control' /></td>
+	        </tr>
+	        
+	        <tr>
+	        	<td>Creditos</td>
+	        	<td><input type='number' id='credits_create' name='credits_create' min="1" max="12" class='form-control' /></td>
+	        </tr>
+	
+	 		<tr>
+	 			<td>Curso</td>
+	 			<td><input type='number' id='course_create' name='course_create' min="1" max="5" class='form-control' /></td>
+	 		</tr>
+	 		
+	 		<tr>
+	 			<td>Grupo</td>
+	 			<td><input type='text' id='group_sbj_create' name='group_sbj_create' min="A" max="Z" class='form-control' /></td>
+	 		</tr>
+	 		
+	 		<tr>
+	            <td>Cuatrimestre</td>
+	            <td>
+					<select class='form-control' id='quarter_create' name='quarter_create'>
+						<option>Seleccionar cuatrimestre...</option>
+						<option value='primer'> Primer</option>
+						<option value='segundo'> Segundo</option>
+					 	<option value='anual'> Anual</option>
+					 </select>
+				</td>
+	        </tr>
+	        	
+	       	 	<tr>
+	            	<td>Estudios</td>
+	            	<td id='td_studies_sbj'>
+	            	
+	           		</td>
+	        	</tr>
+	 
+	        	<tr>
+	           		<td></td>
+	            	<td>
+	                	<button type="submit" class="btn btn-primary">Crear</button>
+	            	</td>
+	      		</tr>
+	    	</table>
+		</form>
+		
+		<div id='confirm_create_sbj'></div>
+		
+		<div id='error_create_sbj'></div>
+	</div>
+	
+	<div id="edit_subject_admin" class="container">
+		<div class='page-header'>
+			<h1>Editar asignatura</h1>
+		</div>
+		<div>
+			<button id='readAll_e' class='btn btn-default pull-right' onclick='read_subject()'>
+				<span class='glyphicon glyphicon-list'></span> Ver asignaturas
+			</button>
+		</div>
+		<form id='edit_subject_form' action='' method='post'>
+		</form>
+		
+		<div id='confirm_edit_sbj'>
+		</div>
+	
+		<div id='error_edit_sbj'>
+		</div>
+	</div>
+	
+	<div id="delete_subject_admin" class="container">
+	</div>
+	
+	<!--ADMIN-SUBJECT_STUDENT-->
+	<div id="list_sbjStudent_admin" class="container">
+	</div>
+	
+	<div id="one_sbjStudent_admin" class="container">
+	</div>
+	
+	<div id="create_sbjStudent_admin" class="container">
+		<div class='page-header'>
+			<h1>Matricular un alumno en una asignatura</h1>
+		</div>
+		<div>
+			<button id='readAll_c' class='btn btn-default pull-right' onclick='read_sbjStudent()'>
+				<span class='glyphicon glyphicon-list'></span> Ver lista
+			</button>
+		</div>
+		<form id='create_sbjStudent_form' action='' method='post'>
+			 <table class='table table-hover table-responsive table-bordered'>
+	 
+	 		<tr>
+	            <td>Numero matricula</td>
+	            <td><input type='number' id='regist_num_create' name='regist_num_create' min='1' max='6' class='form-control' /></td>
+	        </tr>
+	 
+	        <tr>
+	            <td>Periodo matriculacion</td>
+	            <td><input type='number' id='regist_year_create' name='regist_year_create' min='2000' class='form-control' /></td>
+	        </tr>
+	 		
+	        <tr>
+	            <td>Alumno</td>
+	            <td id='td_sbjStudent_stdnt'>
+	            </td>
+	    	</tr>
+	    	
+	        <tr>
+	        	<td>Asignatura</td>
+	            <td id='td_sbjStudent_sbj'>
+	            </td>
+	        </tr>
+	 
+	        <tr>
+	       		<td></td>
+	        	<td>
+                	<button type="submit" class="btn btn-primary">Crear</button>
+                </td>
+	      	</tr>
+	    	</table>
+		</form>
+		
+		<div id='confirm_create_sbjStudent'></div>
+		
+		<div id='error_create_sbjStudent'></div>
+	</div>
+	
+	<div id="edit_sbjStudent_admin" class="container">
+		<div class='page-header'>
+			<h1>Editar un alumno en una asignatura</h1>
+		</div>
+		<div>
+			<button id='readAll_e' class='btn btn-default pull-right' onclick='read_sbjStudent()'>
+				<span class='glyphicon glyphicon-list'></span> Ver lista
+			</button>
+		</div>
+		<form id='edit_sbjStudent_form' action='' method='post'>
+		</form>
+		
+		<div id='confirm_edit_sbjStudent'>
+		</div>
+	
+		<div id='error_edit_sbjStudent'>
+		</div>
+	</div>
+	
+	<div id="delete_sbjStudent_admin" class="container">
+	</div>
+	
+	<!--ADMIN-TEACHER_SUBJECT-->
+	<div id="list_tchSubject_admin" class="container">
+	</div>
+	
+	<div id="one_tchSubject_admin" class="container">
+	</div>
+	
+	<div id="create_tchSubject_admin" class="container">
+		<div class='page-header'>
+			<h1>Agregar un profesor a una asignatura</h1>
+		</div>
+		<div>
+			<button id='readAll_c' class='btn btn-default pull-right' onclick='read_tchSubject()'>
+				<span class='glyphicon glyphicon-list'></span> Ver lista
+			</button>
+		</div>
+		<form id='create_tchSubject_form' action='' method='post'>
+			<table class='table table-hover table-responsive table-bordered'>
+	 		
+	        <tr>
+	        	<td>Profesor</td>
+	            <td id='td_tchSubject_tch_create'>
+	            </td>
+	        </tr>
+	    	
+	        <tr>
+	        	<td>Asignatura</td>
+	            <td id='td_tchSubject_sbj_create'>
+	            </td>
+	        </tr>
+	 
+	        <tr>
+	       		<td></td>
+	        	<td>
+                	<button type="submit" class="btn btn-primary">Crear</button>
+                </td>
+	      	</tr>
+	    	</table>
+		</form>
+		
+		<div id='confirm_create_tchSubject'></div>
+		
+		<div id='error_create_tchSubject'></div>
+	</div>
+	
+	<div id="edit_tchSubject_admin" class="container">
+		<div class='page-header'>
+			<h1>Editar un profesor en una asignatura</h1>
+		</div>
+		<div>
+			<button id='readAll_e' class='btn btn-default pull-right' onclick='read_tchSubject()'>
+				<span class='glyphicon glyphicon-list'></span> Ver lista
+			</button>
+		</div>
+		<form id='edit_tchSubject_form' action='' method='post'>
+		</form>
+		
+		<div id='confirm_edit_tchSubject'>
+		</div>
+	
+		<div id='error_edit_tchSubject'>
+		</div>
+	</div>
+	
+	<div id="delete_tchSubject_admin" class="container">
+	</div>
+	
+	<!--ADMIN-TEACHER_FACULTY-->
+	<div id="list_tchFaculty_admin" class="container">
+	</div>
+	
+	<div id="one_tchFaculty_admin" class="container">
+	</div>
+	
+	<div id="create_tchFaculty_admin" class="container">
+		<div class='page-header'>
+			<h1>Agregar un profesor a una facultad</h1>
+		</div>
+		<div>
+			<button id='readAll_c' class='btn btn-default pull-right' onclick='read_tchFaculty()'>
+				<span class='glyphicon glyphicon-list'></span> Ver lista
+			</button>
+		</div>
+		<form id='create_tchFaculty_form' action='' method='post'>
+			<table class='table table-hover table-responsive table-bordered'>
+	 		
+	        <tr>
+	        	<td>Profesor</td>
+	            <td id='td_tchFaculty_tch_create'>
+	            </td>
+	        </tr>
+	    	
+	        <tr>
+	        	<td>Facultad</td>
+	            <td id='td_tchFaculty_fac_create'>
+	            </td>
+	        </tr>
+	 
+	        <tr>
+	       		<td></td>
+	        	<td>
+                	<button type="submit" class="btn btn-primary">Crear</button>
+                </td>
+	      	</tr>
+	    	</table>
+		</form>
+		
+		<div id='confirm_create_tchFaculty'></div>
+		
+		<div id='error_create_tchFaculty'></div>
+	</div>
+	
+	<div id="edit_tchFaculty_admin" class="container">
+		<div class='page-header'>
+			<h1>Editar un profesor en una asignatura</h1>
+		</div>
+		<div>
+			<button id='readAll_e' class='btn btn-default pull-right' onclick='read_tchFaculty()'>
+				<span class='glyphicon glyphicon-list'></span> Ver lista
+			</button>
+		</div>
+		<form id='edit_tchFaculty_form' action='' method='post'>
+		</form>
+		
+		<div id='confirm_edit_tchFaculty'>
+		</div>
+	
+		<div id='error_edit_tchFaculty'>
+		</div>
+	</div>
+	
+	<div id="delete_tchFaculty_admin" class="container">
+	</div>
+	
+	<!--ADMIN-TEACHER_STUDENT-->
+	<div id="list_tchStudent_admin" class="container">
+	</div>
+	
+	<!--ADMIN-FACULTY_STUDENT-->
+	<div id="list_facStudent_admin" class="container">
+	</div>
+	
+	
+	<!--TEACHER-->
+	<div id="homepage_teacher" class="container">
+		<div id='buttons_header_teacher'>
+			<div id='menu_teacher'  class='btn btn-default pull-left'>
+				<span onclick="openNav_teacher()">&#9776;</span>
+			</div>
+			
+			<button id='log_out' class='btn btn-default pull-right' onclick='exit_web()'>
+				<span class='glyphicon glyphicon-log-out'></span>
+			</button>
+		</div>		
+		
+		<div class='page-header'>	
+			<h1>Página principal</h1>
+		</div>
+		
+		
+		<div id="mySidenav_teacher" class="sidenav">
+			 <a id="btn_close_teacher" href="javascript:void(0)" class="closebtn" onclick="closeNav_teacher()">&times;</a>
+			 <button onclick='edit_passw_teacher(id_tch)'> 
+			 	<span></span>Editar contraseña
+			 </button>
+			 <button onclick='read_deliveries_completed()'>
+				 <span></span> Lista terminadas
+			 </button>
+			 <button onclick='read_subjects_teacher()'>
+				 <span></span> Lista asignaturas
+			 </button>
+			 <button onclick='read_students_teacher()'>
+				 <span></span> Lista alumnos
+			 </button>
+			 <button onclick='personal_information(id_tch)'>
+				 <span></span> Información personal
+			</button>
+		</div>
+		
+		
+		<div id="list_pending_tch">
+			
+		</div>
+	</div>
+	
+	<div id='buttons_header_others_teacher'>
+		<button id='home_teacher' class='btn btn-default pull-left' onclick='go_home_teacher(id_tch)'>
+			<span class='glyphicon glyphicon-home'></span>
+		</button>
+		
+		<button id='log_out' class='btn btn-default pull-right' onclick='exit_web()'>
+			<span class='glyphicon glyphicon-log-out'></span>
+		</button>
+	</div>
+	
+	<div id="personal_data" class='container'></div>
+	
+	<div id='list_completed_tch' class='container'></div>
+	
+	<div id="one_delivery_teacher" class="container">
+	</div>
+	
+	<div id="one_delivery_compl_teacher" class="container">
+	</div>
+	
+	<div id='evaluate_dlv' class='container'></div>
+	
+	<div id="one_evaluate_tch" class='container'></div>
+	
+	<div id="create_delivery_teacher" class="container">
+		<div class='page-header'>
+			<h1>Crear tarea</h1>
+		</div>
+		<div>
+			<button id='readAll_c' class='btn btn-default pull-right' onclick='read_pending_apT(id_tch)'>
+				<span class='glyphicon glyphicon-list'></span> Ver tareas pendientes
+			</button>
+		</div>
+		<form id='create_delivery_form' action='' method='post'>
+			 <table class='table table-hover table-responsive table-bordered'>
+	 
+	 		<tr>
+	            <td>Nombre</td>
+	            <td><input type='text' id='name_dlv_create' name='name_dlv_create' class='form-control' /></td>
+	        </tr>
+	        
+	        <tr>
+	            <td>Tipo</td>
+	            <td>
+					<select class='form-control' id='type_dlv_create' name='type_dlv_create'>
+						<option>Seleccionar tipo de tarea...</option>
+						<option value='examen'> Examen</option>
+						<option value='proyecto'> Proyecto</option>
+					 	<option value='practica'> Practica</option>
+					 	<option value='ejercicio'> Ejercicio</option>
+					 </select>
+				</td>
+	        </tr>
+	 
+	        <tr>
+	            <td>Porcentaje</td>
+	            <td><input type='number' id='percent_create' name='percent_create'  min="0" max="100" class='form-control' /></td>
+	        </tr>
+	        
+	        <tr>
+	        	<td>Fecha de subida</td>
+	        	<td><input type="datetime-local" id='rise_date_create' name='rise_date_create' placeholder='yyyy-mm-dd hh:mm:ss' class='form-control' /></td>
+	        </tr>
+	
+	 		<tr>
+	        	<td>Fecha limite de entrega</td>
+	        	<td><input type="datetime-local" id='deliver_date_create' name='deliver_date_create' placeholder='yyyy-mm-dd hh:mm:ss' class='form-control' /></td>
+	        </tr>
+	 		
+	 		<tr>
+	 			<td>Comentario profesor</td>
+	 			<td><input type='text' id='tch_comment_create' name='tch_comment_create' class='form-control' /></td>
+	 		</tr>
+	 		
+	       	 <tr>
+	            <td>Asignatura</td>
+	            <td id='td_subject_teacher'>
+	            	
+	           	</td>
+	        </tr>
+	 
+	        <tr>
+	           	<td></td>
+	            <td>
+	                <button type="submit" class="btn btn-primary">Crear</button>
+	            </td>
+	      	</tr>
+	    	</table>
+		</form>
+		
+		<div id='confirm_create_dlv'></div>
+		
+		<div id='error_create_dlv'></div>
+	</div>
+	
+	<div id="edit_delivery_teacher" class="container">
+		<div class='page-header'>
+			<h1>Editar tarea</h1>
+		</div>
+		<div>
+			<button id='readAll_e' class='btn btn-default pull-right' onclick='read_pending_apT(id_tch)'>
+				<span class='glyphicon glyphicon-list'></span> Ver tareas pendientes
+			</button>
+		</div>
+		<form id='edit_delivery_form' action='' method='post'>
+		</form>
+		
+		<div id='confirm_edit_dlv'>
+		</div>
+	
+		<div id='error_edit_dlv'>
+		</div>
+	</div>
+	
+	<div id="delete_delivery_teacher" class="container">
+	</div>
+	
+	<div id='list_subjects_tch' class='container'></div>
+	
+	<div id="one_subject_tch" class='container'></div>
+	
+	<div id='list_students_tch' class='container'></div>
+	
+	<div id="one_student_tch" class='container'></div>
+	
+	<div id="edit_evaluate_tch" class='container'>
+		<div class='page-header'>
+			<h1>Editar evaluacion de un alumno</h1>
+		</div>
+		<div id='button_eval'>
+			
+		</div>
+		<form id='edit_evaluate_form' action='' method='post'>
+		</form>
+		
+		<div id='confirm_edit_note'>
+		</div>
+	
+		<div id='error_edit_note'>
+		</div>
+	</div>
+	
+	<div id="error_edit_note" class='container'></div>
+	
+    <div id= "confirm_edit_note" class='container'></div>
+	
+	<!--COMMON-->
+	<div id='login'>
+		<div id='imagen'>
+			<img id="logo" src="img/UCM_Logo.png" alt="UCM">
+		</div>
+		
+		<div id="title" class='page-header'>
+			<h1>OrganizUcm</h1>
+		</div>
+		
+		<form id='login_form' action='' method='post' autocomplete='on'>
+			
+			<fieldset>
+				<p>
+					<label>Correo:</label> 
+					<input type='email' id='mail_login' name='mail_login' placeholder='profesor@ucm.es' class='form-control'/>
+				</p>
+				<p>
+					<label>Contrase&ntilde;a:</label> 
+					<input type='password' id='passw_login' name='passw_login' placeholder='password' class='form-control'/>
+				</p>
+				
+				<div id='login_error'>
+					<p>Error: Usuario o contraseña incorrectos.</p>
+				</div>
+			    
+			    <button type="submit" class="btn btn-primary">
+		          <span class="glyphicon glyphicon-log-in"></span> Log in
+		        </button>
+			  	
+			</fieldset>
+		</form>
+	</div>
+	
+	<div id="error_generic" class="alert alert-danger">
+		Ups! Ha habido un error. 
+		Vuelve a intentarlo mas tarde.
+	</div>
+
+	<div id="edit_pass" class="container">
+		<div id='ed_passw' class='page-header'>			
+			<h1>Editar contraseña</h1>
+		</div>
+		
+		<div id="form_edit">
+			<form id='edit_form' action='' method='post'>
+					<fieldset>
+					<p>
+						<label>Antigua contrase&ntilde;a:</label> 
+						<input type='password' id='passw_old' name='passw_old' placeholder='contrase&ntilde;a antigua' class='form-control'/>
+					</p>
+					<p>
+						<label>Contrase&ntilde;a nueva:</label> 
+						<input type='password' id='passw_new' name='passw_new' placeholder='contrase&ntilde;a nueva' class='form-control'/>
+					</p>
+					<p>
+						<label>Confirmacion de contrase&ntilde;a: </label> 
+						<input type='password' id='passw_confirm' name='passw_confirm' placeholder='confirmacion contrase&ntilde;a' class='form-control'/>
+					</p>
+				    
+				    <div id="confirm_edit">
+					</div>
+					
+				    <button id="btn_edit" type='submit' class="btn btn-primary">
+			          <span class="glyphicon glyphicon-edit"></span> Editar
+			        </button>
+				  	
+					</fieldset>
+			</form>
+		</div>
+	</div>
+	
+	<div id="delete_evaluate_teacher" class="container"></div>
+	
+	<script>
+	//function to process the login
+	(function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('mail_login', $('#mail_login').val());
+        	data.append('passw_login', $('#passw_login').val());
+        	
+        	//console.log($('#mail_login').val(), $('#passw_login').val());
+
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/login.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	var json = JSON.parse(data);
+                	
+                	////console.log(json);
+                	
+                    if(json.status == 'ERROR') {
+                    	fadeIn_all('#login_error');
+                    }
+                    else {
+                    	fadeOut_all('#login');
+                    	if(json.id_tch == 1){
+	                    	fadeIn_all('#homepage_admin');
+	                    	
+	                    	id_tch = json.id_tch;
+	                    	token = json.token;
+                    	}
+                    	else if(json.id_tch > 1){
+	                    	fadeIn_all('#homepage_teacher');
+	                    	
+	                    	id_tch = json.id_tch;
+	                    	token = json.token;
+	  					
+	  						read_pending_apT(id_tch);
+                    	}
+                    	else{
+                        	fadeIn_all('#login_error');
+                        }
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#login_form').submit( processForm );
+    })(jQuery);
+	
+	//function to process the form that edits the password
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('passw_old', $('#passw_old').val());
+        	data.append('passw_new', $('#passw_new').val());
+        	data.append('passw_confirm', $('#passw_confirm').val());
+
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/edit_passw.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	document.getElementById("edit_form").reset();
+                	
+                	var json = JSON.parse(data);
+                	
+                	////console.log(json);
+                	
+                    if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_generic');
+                    }
+                    else {
+                    	fadeIn_all('#confirm_edit');
+
+                    	$('#confirm_edit').append(
+                    		"<div class='alert alert-success'>Contraseña edita con exito</div>"
+                    	);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#edit_form').submit( processForm );
+    })(jQuery);
+    
+     //function to process the form that create one faculty
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('name_fac_create', $('#name_fac_create').val());
+        	data.append('address_create', $('#address_create').val());
+        	data.append('phone_create', $('#phone_create').val());
+			data.append('postal_code_create', $('#postal_code_create').val());
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/creater/create_faculty.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	document.getElementById("create_faculty_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	////console.log(json);
+                	
+                    if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_create_fac');
+                    	
+                    	$('#error_create_fac').append(
+                    		"<div class='alert alert-danger'>No se pudo crear una facultad</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_create_fac');
+
+                    	$('#confirm_create_fac').append(
+                    		"<div class='alert alert-success'>Facultad creada con exito</div>"
+                    	);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#create_faculty_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that update one faculty
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('id_fac_ed',  $('#id_fac_ed').val());
+        	data.append('name_fac_ed', $('#name_fac_ed').val());
+        	data.append('address_ed', $('#address_ed').val());
+        	data.append('phone_ed', $('#phone_ed').val());
+			data.append('postal_code_ed', $('#postal_code_ed').val());
+			
+			////console.log($('#id_fac_ed').val(), $('#name_fac_ed').val());
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/updater/update_faculty.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	//document.getElementById("edit_faculty_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	//console.log(json);
+                	
+                	if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_edit_fac');
+                    	
+                    	$('#error_edit_fac').append(
+                    		"<div class='alert alert-danger'>No se pudo editar una facultad</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_edit_fac');
+
+                    	$('#confirm_edit_fac').append(
+                    		"<div class='alert alert-success'>Facultad editada con exito</div>"
+                    	);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#edit_faculty_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that create one teacher
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('name_tch_create', $('#name_tch_create').val());
+        	data.append('last_name_tch_create', $('#last_name_tch_create').val());
+        	data.append('mail_tch_create', $('#mail_tch_create').val());
+        	data.append('passw_tch_create', $('#passw_tch_create').val());
+			data.append('office_tch_create', $('#office_tch_create').val());
+        	
+        	////console.log($('#name_tch_create').val(), $('#last_name_tch_create').val(), $('#mail_tch_create').val(), $('#passw_tch_create').val(), $('#office_tch_create').val());
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/creater/create_teacher.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	document.getElementById("create_teacher_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	//console.log("json: " , json);
+                	
+                    if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_create_tch');
+                    	
+                    	$('#error_create_tch').append(
+                    		"<div class='alert alert-danger'>No se pudo crear un profesor</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_create_tch');
+
+                    	$('#confirm_create_tch').append(
+                    		"<div class='alert alert-success'>Profesor creado con exito</div>"
+                    	);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#create_teacher_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that update one teacher
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('id_tch_ed',  $('#id_tch_ed').val());
+        	data.append('name_tch_ed', $('#name_tch_ed').val());
+        	data.append('last_name_tch_ed', $('#last_name_tch_ed').val());
+        	data.append('mail_tch_ed', $('#mail_tch_ed').val());
+        	data.append('passw_tch_ed', $('#passw_tch_ed').val());
+			data.append('office_tch_ed', $('#office_tch_ed').val());
+			
+			////console.log($('#id_tch_ed').val(), $('#name_tch_ed').val());
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/updater/update_teacher.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	//document.getElementById("edit_faculty_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	//console.log(json);
+                	
+                	if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_edit_tch');
+                    	
+                    	$('#error_edit_tch').append(
+                    		"<div class='alert alert-danger'>No se pudo editar un profesor</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_edit_tch');
+
+                    	$('#confirm_edit_tch').append(
+                    		"<div class='alert alert-success'>Profesor editado con exito</div>"
+                    	);
+                    }
+                    
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#edit_teacher_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that create one subject
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('abbrev_sbj_create', $('#abbrev_sbj_create').val());
+        	data.append('name_sbj_create', $('#name_sbj_create').val());
+        	data.append('credits_create', $('#credits_create').val());
+        	data.append('course_create', $('#course_create').val());
+        	data.append('group_sbj_create', $('#group_sbj_create').val());
+        	var aux_quarter_sbj_create = $('select[name=quarter_create]').val();
+        	data.append('quarter_create', aux_quarter_sbj_create);
+        	var aux_sbj_create = $('select[name=stds_sbj_create]').val();
+            data.append('stds_sbj_create' , aux_sbj_create);
+        	
+        	////console.log(aux_quarter_sbj_create, aux_sbj_create);
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/creater/create_subject.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	document.getElementById("create_subject_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	//console.log(json);
+                	
+                    if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_create_sbj');
+                    	
+                    	$('#error_create_sbj').append(
+                    		"<div class='alert alert-danger'>No se pudo crear una asignatura</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_create_sbj');
+
+                    	$('#confirm_create_sbj').append(
+                    		"<div class='alert alert-success'>Asignatura creada con exito</div>"
+                    	);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#create_subject_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that update one subject
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('id_sbj_ed',  $('#id_sbj_ed').val());
+        	data.append('abbrev_sbj_ed', $('#abbrev_sbj_ed').val());
+        	data.append('name_sbj_ed', $('#name_sbj_ed').val());
+        	data.append('credits_ed', $('#credits_ed').val());
+        	data.append('course_ed', $('#course_ed').val());
+        	data.append('group_sbj_ed', $('#group_sbj_ed').val());
+        	var aux_quarter_sbj_ed = $('select[name=quarter_ed]').val();
+        	data.append('quarter_ed', aux_quarter_sbj_ed);
+        	var aux_sbj_ed = $('select[name=stds_sbj_ed]').val();
+            data.append('stds_sbj_ed' , aux_sbj_ed);
+			
+			////console.log($('#id_sbj_ed').val());
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/updater/update_subject.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	//document.getElementById("edit_faculty_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	//console.log(json);
+                	
+                	if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_edit_sbj');
+                    	
+                    	$('#error_edit_sbj').append(
+                    		"<div class='alert alert-danger'>No se pudo editar una asignatura</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_edit_sbj');
+
+                    	$('#confirm_edit_sbj').append(
+                    		"<div class='alert alert-success'>Asignatura editada con exito</div>"
+                    	);
+                    }
+                    
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#edit_subject_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that create one student
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('name_stdnt_create', $('#name_stdnt_create').val());
+        	data.append('last_name_stdnt_create', $('#last_name_stdnt_create').val());
+        	data.append('mail_stdnt_create', $('#mail_stdnt_create').val());
+        	data.append('passw_stdnt_create', $('#passw_stdnt_create').val());
+        	var aux_stdnt = $('select[name=stds_stdnt_create]').val();
+            data.append('stds_stdnt_create' , aux_stdnt);
+        	
+        	//console.log(aux_stdnt);
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/creater/create_student.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	document.getElementById("create_student_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	console.log(json);
+                	
+                    if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_create_stdnt');
+                    	
+                    	$('#error_create_stdnt').append(
+                    		"<div class='alert alert-danger'>No se pudo crear un alumno</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_create_stdnt');
+
+                    	$('#confirm_create_stdnt').append(
+                    		"<div class='alert alert-success'>Alumno creado con exito</div>"
+                    	);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#create_student_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that update one student
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('id_stdnt_ed',  $('#id_stdnt_ed').val());
+        	data.append('name_stdnt_ed', $('#name_stdnt_ed').val());
+        	data.append('last_name_stdnt_ed', $('#last_name_stdnt_ed').val());
+        	data.append('mail_stdnt_ed', $('#mail_stdnt_ed').val());
+        	data.append('passw_stdnt_ed', $('#passw_stdnt_ed').val());
+        	var aux_stdnt_ed = $('select[name=stds_stdnt_ed]').val();
+            data.append('stds_stdnt_ed' , aux_stdnt_ed);
+        	
+			////console.log($('#id_sbj_ed').val());
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/updater/update_student.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	//document.getElementById("edit_faculty_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	//console.log(json);
+                	
+                	if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_edit_stdnt');
+                    	
+                    	$('#error_edit_stdnt').append(
+                    		"<div class='alert alert-danger'>No se pudo editar un alumno</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_edit_stdnt');
+
+                    	$('#confirm_edit_stdnt').append(
+                    		"<div class='alert alert-success'>Alumno editado con exito</div>"
+                    	);
+                    }
+                    
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#edit_student_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that create one study
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('abbrev_stds_create', $('#abbrev_stds_create').val());
+        	data.append('name_stds_create', $('#name_stds_create').val());
+        	var aux_type_stds_create = $('select[name=type_stds_create]').val();
+        	data.append('type_stds_create', aux_type_stds_create);
+        	data.append('itinerary_create', $('#itinerary_create').val());
+        	var aux_fac_create = $('select[name=fac_stds_create]').val();
+            data.append('fac_create' , aux_fac_create);
+            
+        	//console.log(aux_type_stds, aux_stds, $('#itinerary').val());
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/creater/create_studies.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	document.getElementById("create_studies_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	console.log(json);
+                	
+                    if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_create_stds');
+                    	
+                    	$('#error_create_stds').append(
+                    		"<div class='alert alert-danger'>No se pudo crear un estudio</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_create_stds');
+
+                    	$('#confirm_create_stds').append(
+                    		"<div class='alert alert-success'>Estudio creado con exito</div>"
+                    	);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#create_studies_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that update one studies
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('id_stds_ed',  $('#id_stds_ed').val());
+        	data.append('abbrev_stds_ed', $('#abbrev_stds_ed').val());
+        	data.append('name_stds_ed', $('#name_stds_ed').val());
+        	var aux_type_stds_ed = $('select[name=type_stds_ed]').val();
+        	data.append('type_stds_ed', aux_type_stds_ed);
+        	data.append('itinerary_ed', $('#itinerary_ed').val());
+        	var aux_fac_stds_ed = $('select[name=fac_stds_ed]').val();
+        	data.append('fac_stds_ed', aux_fac_stds_ed);
+        	
+        	console.log($('#id_stds_ed').val(), $('#abbrev_stds_ed').val(), $('#name_stds_ed').val(), aux_type_stds_ed, $('#itinerary_ed').val(), aux_fac_stds_ed );
+            
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/updater/update_studies.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	//document.getElementById("edit_faculty_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	console.log(json);
+                	
+                	if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_edit_stds');
+                    	
+                    	$('#error_edit_stds').append(
+                    		"<div class='alert alert-danger'>No se pudo editar un estudio</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_edit_stds');
+
+                    	$('#confirm_edit_stds').append(
+                    		"<div class='alert alert-success'>Estudio editado con exito</div>"
+                    	);
+                    }
+                    
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#edit_studies_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that create one relation of subject and student
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('regist_num_create', $('#regist_num_create').val());
+        	data.append('regist_year_create', $('#regist_year_create').val());
+        	var aux_sbjStudent_stdnt_create = $('select[name=sbjStudent_stdnt_create]').val();
+        	data.append('sbjStudent_stdnt_create', aux_sbjStudent_stdnt_create);
+        	var aux_sbjStudent_sbj_create = $('select[name=sbjStudent_sbj_create]').val();
+        	data.append('sbjStudent_sbj_create', aux_sbjStudent_sbj_create);
+            
+        	//console.log(aux_sbjStudent_stdnt, aux_sbjStudent_sbj);
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/creater/create_sbjStudent.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	document.getElementById("create_sbjStudent_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	//console.log(json);
+                	
+                    if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_create_sbjStudent');
+                    	
+                    	$('#error_create_sbjStudent').append(
+                    		"<div class='alert alert-danger'>No se pudo matricular un alumno en una asignatura</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_create_sbjStudent');
+
+                    	$('#confirm_create_sbjStudent').append(
+                    		"<div class='alert alert-success'>Alumno matriculado en una asignatura con exito</div>"
+                    	);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#create_sbjStudent_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that update one relation of subject and student
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('id_sbjStudent_ed', $('#id_sbjStudent_ed').val());
+        	data.append('regist_num_ed', $('#regist_num_ed').val());
+        	data.append('regist_year_ed', $('#regist_year_ed').val());
+        	var aux_sbjStudent_stdnt_ed = $('select[name=sbjStudent_stdnt_ed]').val();
+        	data.append('sbjStudent_stdnt_ed', aux_sbjStudent_stdnt_ed);
+        	var aux_sbjStudent_sbj_ed = $('select[name=sbjStudent_sbj_ed]').val();
+        	data.append('sbjStudent_sbj_ed', aux_sbjStudent_sbj_ed);
+            
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/updater/update_sbjStudent.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	//document.getElementById("edit_faculty_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	console.log(json);
+                	
+                	if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_edit_sbjStudent');
+                    	
+                    	$('#error_edit_sbjStudent').append(
+                    		"<div class='alert alert-danger'>No se pudo editar una matricula</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_edit_sbjStudent');
+
+                    	$('#confirm_edit_sbjStudent').append(
+                    		"<div class='alert alert-success'>Matricula editada con exito</div>"
+                    	);
+                    }
+                    
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#edit_sbjStudent_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that create one relation of teacher and subject
+   (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	var aux_tchSubject_tch = $('select[name=tchSubject_tch_create]').val();
+        	data.append('tchSubject_tch_create', aux_tchSubject_tch);
+        	var aux_tchSubject_sbj = $('select[name=tchSubject_sbj_create]').val();
+        	data.append('tchSubject_sbj_create', aux_tchSubject_sbj);
+            
+        	console.log(aux_tchSubject_tch, aux_tchSubject_sbj);
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/creater/create_tchSubject.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	document.getElementById("create_tchSubject_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	console.log(json);
+                	
+                    if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_create_tchSubject');
+                    	
+                    	$('#error_create_tchSubject').append(
+                    		"<div class='alert alert-danger'>No se pudo asignar un profesor en una asignatura</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_create_tchSubject');
+
+                    	$('#confirm_create_tchSubject').append(
+                    		"<div class='alert alert-success'>Profesor asignado en una asignatura con exito</div>"
+                    	);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#create_tchSubject_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that update one relation of teacher and subject
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('id_tchSubject_ed', $('#id_tchSubject_ed').val());
+        	var aux_tchSubject_tch_ed = $('select[name=tchSubject_tch_ed]').val();
+        	data.append('tchSubject_tch_ed', aux_tchSubject_tch_ed);
+        	var aux_tchSubject_sbj_ed = $('select[name=tchSubject_sbj_ed]').val();
+        	data.append('tchSubject_sbj_ed', aux_tchSubject_sbj_ed);
+        	
+        	console.log("index", $('#id_tchSubject_ed').val(), aux_tchSubject_tch_ed, aux_tchSubject_sbj_ed);
+            
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/updater/update_tchSubject.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	//document.getElementById("edit_faculty_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	console.log(json);
+                	
+                	if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_edit_tchSubject');
+                    	
+                    	$('#error_edit_tchSubject').append(
+                    		"<div class='alert alert-danger'>No se pudo editar una relacion</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_edit_tchSubject');
+
+                    	$('#confirm_edit_tchSubject').append(
+                    		"<div class='alert alert-success'>Relacion editada con exito</div>"
+                    	);
+                    }
+                    
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#edit_tchSubject_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that create one relation of teacher and faculty
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	var aux_tchFaculty_tch = $('select[name=tchFaculty_tch_create]').val();
+        	data.append('tchFaculty_tch_create', aux_tchFaculty_tch);
+        	var aux_tchFaculty_fac = $('select[name=tchFaculty_fac_create]').val();
+        	data.append('tchFaculty_fac_create', aux_tchFaculty_fac);
+            
+        	console.log(aux_tchFaculty_tch, aux_tchFaculty_fac);
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/creater/create_tchFaculty.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	document.getElementById("create_tchFaculty_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	console.log(json);
+                	
+                    if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_create_tchFaculty');
+                    	
+                    	$('#error_create_tchFaculty').append(
+                    		"<div class='alert alert-danger'>No se pudo asignar un profesor en una facultad</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_create_tchFaculty');
+
+                    	$('#confirm_create_tchFaculty').append(
+                    		"<div class='alert alert-success'>Profesor asignado en una facultad con exito</div>"
+                    	);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#create_tchFaculty_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that update one relation of teacher and faculty
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('id_tchFaculty_ed', $('#id_tchFaculty_ed').val());
+        	var aux_tchFaculty_tch_ed = $('select[name=tchFaculty_tch_ed]').val();
+        	data.append('tchFaculty_tch_ed', aux_tchFaculty_tch_ed);
+        	var aux_tchFaculty_fac_ed = $('select[name=tchFaculty_fac_ed]').val();
+        	data.append('tchFaculty_fac_ed', aux_tchFaculty_fac_ed);
+        	
+            
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/admin/updater/update_tchFaculty.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	//document.getElementById("edit_faculty_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	console.log(json);
+                	
+                	if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_edit_tchFaculty');
+                    	
+                    	$('#error_edit_tchFaculty').append(
+                    		"<div class='alert alert-danger'>No se pudo editar una relacion</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_edit_tchSubject');
+
+                    	$('#confirm_edit_tchFaculty').append(
+                    		"<div class='alert alert-success'>Relacion editada con exito</div>"
+                    	);
+                    }
+                    
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#edit_tchFaculty_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that create one delivery
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('name_dlv_create', $('#name_dlv_create').val());
+        	var aux_type_dlv_create = $('select[name=type_dlv_create]').val();
+        	data.append('type_dlv_create', aux_type_dlv_create);
+        	data.append('percent_create', $('#percent_create').val());
+        	data.append('rise_date_create', $('#rise_date_create').val());
+        	data.append('deliver_date_create', $('#deliver_date_create').val());
+        	data.append('tch_comment_create', $('#tch_comment_create').val());
+        	var aux_subject_teacher_create = $('select[name=subject_teacher_create]').val();
+        	data.append('subject_teacher_create', aux_subject_teacher_create);
+        	
+        	
+        	console.log( $('#tch_comment_create').val() );
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/teacher/create_delivery.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	document.getElementById("create_delivery_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	//console.log(json);
+                	
+                    if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_create_dlv');
+                    	
+                    	$('#error_create_dlv').append(
+                    		"<div class='alert alert-danger'>No se pudo crear una tarea</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_create_dlv');
+
+                    	$('#confirm_create_dlv').append(
+                    		"<div class='alert alert-success'>Tarea creada con exito</div>"
+                    	);
+                    }
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#create_delivery_form').submit( processForm );
+    })(jQuery);
+    
+     //function to process the form that update one delivery
+    (function($){
+        function processForm( e ){
+        	
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('id_dlv_ed',  $('#id_dlv_ed').val());
+        	
+        	data.append('name_dlv_ed', $('#name_dlv_ed').val());
+        	var aux_type_dlv_ed = $('select[name=type_dlv_ed]').val();
+        	data.append('type_dlv_ed', aux_type_dlv_ed);
+        	data.append('percent_ed', $('#percent_ed').val());
+        	data.append('rise_date_ed', $('#rise_date_ed').val());
+        	data.append('deliver_date_ed', $('#deliver_date_ed').val());
+        	data.append('tch_comment_ed', $('#tch_comment_ed').val());
+        	var aux_subject_teacher_ed = $('select[name=subject_teacher_ed]').val();
+        	data.append('subject_teacher_ed', aux_subject_teacher_ed);
+			
+			////console.log($('#id_sbj_ed').val());
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/teacher/update_delivery.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	//document.getElementById("edit_faculty_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	//console.log(json);
+                	
+                	if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_edit_dlv');
+                    	
+                    	$('#error_edit_dlv').append(
+                    		"<div class='alert alert-danger'>No se pudo editar una tarea</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_edit_dlv');
+
+                    	$('#confirm_edit_dlv').append(
+                    		"<div class='alert alert-success'>Tarea editada con exito</div>"
+                    	);
+                    }
+                    
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#edit_delivery_form').submit( processForm );
+    })(jQuery);
+    
+    //function to process the form that update one delivery
+	(function($){
+   		function processForm( e ){
+   		
+        	var data = new FormData();
+        	data.append('id_tch', id_tch);
+        	data.append('token', token);
+        	data.append('id_one_dlv_ed',  $('#id_one_dlv_ed').val());
+        	data.append('id_one_stdnt_ed', $('#id_one_stdnt_ed').val());
+        	data.append('note_eval', $('#note_eval').val());
+        	data.append('tch_comment_eval', $('#tch_comment_eval').val());
+			
+			//console.log("DLV" , $('#id_one_dlv_ed').val());
+        	
+            $.ajax({
+                url: server_addr + 'organizaMisPracticas/application/web/teacher/update_note_teacher.php',
+                type: 'post',
+                method: 'post',
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function( data, textStatus, jQxhr ){
+                	//document.getElementById("edit_faculty_form").reset();	
+                	
+                	var json = JSON.parse(data);
+                	
+                	console.log(json);
+                	
+                	if(json.status == 'ERROR') {
+                    	fadeIn_all('#error_edit_note');
+                    	
+                    	$('#error_edit_note').append(
+                    		"<div class='alert alert-danger'>No se pudo editar una calificacion</div>"
+                    	);
+                    }
+                    else {
+                    	fadeIn_all('#confirm_edit_note');
+
+                    	$('#confirm_edit_note').append(
+                    		"<div class='alert alert-success'>Calificación editada con exito</div>"
+                    	);
+                    }
+                    
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+
+        $('#edit_evaluate_form').submit( processForm );
+    })(jQuery);
+	</script>
+	
+	<script>
+	var dropdown = document.getElementsByClassName("dropdown-btn");
+	var i;
+
+	for (i = 0; i < dropdown.length; i++) {
+	  dropdown[i].addEventListener("click", function() {
+	    this.classList.toggle("active");
+	    var dropdownContent = this.nextElementSibling;
+	    if (dropdownContent.style.display === "block") {
+	      dropdownContent.style.display = "none";
+	    } else {
+	      dropdownContent.style.display = "block";
+	    }
+	  });
+	}
+	
+	function openNav_admin() {
+	    document.getElementById("mySidenav_admin").style.width = "220px";
+	    document.getElementById("main_admin").style.marginLeft = "220px";
+	}
+
+	function closeNav_admin() {
+	    document.getElementById("mySidenav_admin").style.width = "0";
+	    document.getElementById("main_admin").style.marginLeft= "0";
+	}
+	
+	function openNav_teacher() {
+	    document.getElementById("mySidenav_teacher").style.width = "220px";
+	    document.getElementById("list_pending_tch").style.marginLeft = "220px";
+	}
+
+	function closeNav_teacher() {
+	    document.getElementById("mySidenav_teacher").style.width = "0";
+	    document.getElementById("list_pending_tch").style.marginLeft= "0";
+	}
+	</script>
+</body>
+</html>

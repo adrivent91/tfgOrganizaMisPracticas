@@ -1,0 +1,445 @@
+@CHARSET "UTF-8";
+
+html,body{
+    height: 100%;
+    width: 100%;
+    font-family: sans-serif;
+}
+
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #FFF;
+    display: block;
+}
+
+#imagen{
+	position: relative;
+	width: 220px;
+	height: 220px;
+	top: 75px;
+	display:block;
+	margin:auto;
+	border-radius: 110px;
+	background-color: white;
+	z-index: 10;
+}
+
+#imagen_menu{
+	position: relative;
+	width: 120px;
+	height: 120px;
+	display:block;
+	margin:auto;
+	border-radius: 60px;
+	background-color: white;
+	z-index: 10;
+	bottom: 5px;
+}
+
+#logo{
+	position: relative;
+	width: 200px;
+	height: 200px;
+	display:block;
+	margin:auto;
+}
+
+#logo_menu{
+	position: relative;
+	width: 100px;
+	height: 100px;
+	display:block;
+	margin:auto;
+}
+
+#log_out{
+	margin-top:15px;
+}
+
+#login{
+	position: relative;
+	top: 125px;
+	width: 300px;
+	display: block;
+	margin:auto;
+	z-index:5px;
+	height: 44px;
+    font-size: 16px;
+    background-color: #B71234;
+}
+
+#login div{
+	margin: 15px 0;
+}
+
+.btn-default {
+    color: white ;
+    background-color: #B71234;
+    border-color: #B71234;
+}
+
+#login button{
+	background-color: white;
+	border: 3px solid #FFF;
+	color: #B71234;
+	display:block;
+	margin:auto;
+}
+
+#login_error{
+	color: white;
+}
+
+#page_login {
+   background-color: #B71234;
+   width: 100%;
+   height: 100%;
+}
+
+#page_login h1{
+	line-height: 1.3em;
+	margin: 15px 0;
+	text-align: center;
+	font-weight: 300;
+	color: white;
+}
+
+#buttons_header, #buttons_header_others{
+	display: inline;
+    padding: 5px;
+    background-color: #B71234;
+}
+
+#one_dlv_pending p{
+	margin: 5px;
+	display: table-header-group;
+}
+
+.page-header {
+    padding-bottom: 3px;
+    border-bottom: 2px solid #B71234;
+    background-color: #B71234;
+	margin: 0px 0 0px;
+}
+
+.container {
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 10px;
+}
+
+#principal{
+	margin: 0 0px 0 0px;
+}
+
+h1{
+	text-align: center;
+	color: white;
+}
+
+h2{
+	font-size: 22px;
+}
+
+h3{
+	font-size:20px;	
+}
+
+p{
+	font-size: 18px;
+}
+
+a {
+    text-decoration: none;
+    color: #008CBA;
+}
+
+#img-right{
+	width: 30px;
+    height: 30px;
+    border-radius: 15px;
+	background-color: white;
+	z-index: 10;
+	bottom: 5px;
+	text-align: center;
+	float: right;
+	margin-top: 10px;
+    margin-right: 10px;
+}
+
+#logo-right{
+	width: 25px;
+	height: 25px;
+}
+
+#home, #menu{
+	color:white;
+	margin:10px 10px 0 10px;
+}
+
+#btn_edit, #btn_edit_passw button, #btn_teachers button, #btn_subjects button, #btn_list_completed button{
+	 background-color: #B71234;
+	 color:white;
+	 border: 1px solid #B71234;
+	 margin: 5px 7px 10px 0;
+}
+
+#one_sbj button{
+	margin: auto; 
+	display: block;
+}
+
+#btn_edit_passw, #btn_subjects{
+	margin: 5px 7px 40px 0;
+}
+
+#dlv_pending, #one_dlv_pending, #edit_password, #list_subjects, #list_teachers,
+#personal_data, #deliveries_completed, #one_dlv_completed, #one_sbj, #one_tch, #error_generic{
+	margin: 0px 0px 0px 0px;
+}
+
+#btn_tch{
+	float:right;
+}
+
+#btn_sbjs{
+	margin-bottom: 10px;
+}
+				
+#dlv_p_examen, #dlv_c_examen{
+	border-bottom: 2px solid #ce3192;
+	margin: 5px;
+}
+
+#exams_p h2, .td_exam, #exams_p #information h4, #exams_c h2, #exams_c #information h4{
+	color: #ce3192;
+}
+
+#exams_p p, #proyects_p p, #big_exercices_p p, #exercices_p p, #exams_c p, #proyects_c p, #big_exercices_c p, #exercices_c p,
+	#information h4{
+	margin-left:70px;
+}
+
+#container_p, #container_c, #form_edit{
+	margin: 10px 10px 0 10px;
+}
+
+#dlv_p_proyecto, #dlv_c_proyecto{
+	border-bottom: 2px solid #1225b7;
+	margin: 5px;
+}
+
+#proyects_p h2, .td_proy, #proyects_p #information h4, #proyects_c h2, #proyects_c #information h4{
+	color: #1225b7;
+}
+
+#dlv_p_practica, #dlv_c_practica{
+	border-bottom: 2px solid #b78012;
+	margin: 5px;
+}
+
+#big_exercices_p h2, .td_big_e, #big_exercices_p #information h4, #big_exercices_c h2, #big_exercices_c #information h4{
+	color: #b78012;
+}
+
+#dlv_p_ejercicio, #dlv_c_ejercicio{
+	border-bottom: 2px solid #0d9618;
+	margin: 5px;
+}
+
+#exercices_p h2, .td_exer, #exercices_p #information h4, #exercices_c h2, #exercices_c #information h4{
+	color: #0d9618;
+}
+
+#notif_green, #note_green{
+	background-color: #9ACD32;
+}
+
+#notif_yellow{
+	background-color: #FFD700;
+}
+
+#notif_red, #note_red{
+	background-color: #FF0000;
+}
+
+#notif_red, #notif_yellow, #notif_green{
+	width: 20px;
+	height: 20px;
+	border-radius: 10px;
+	border: 1px solid white;
+	display: block;
+    float: right;
+    margin: 5px;
+    margin-top: 12px;
+}
+
+#abbrev_pend, #abbrev_comp{
+	width: 60px;
+	height: 60px;
+	border-radius: 30px;
+	top: 75px;
+	display:grid;
+	margin: 15px 10px 0 0;
+	background-color: white;
+    float: left;
+    text-align: center;
+}
+
+#abbrev_subj, #first_t{
+	width: 60px;
+	height: 60px;
+	border-radius: 30px;
+	top: 75px;
+	display:grid;
+	margin: 15px 10px 0 5px;
+	background-color:#B71234 ;
+    float: left;
+    text-align: center;
+}
+
+#abbrev_subj p, #first_t p{
+	text-transform: uppercase;
+	margin:auto;
+	color: white;
+}
+
+#abbrev_pend p, #abbrev_comp p{
+	text-transform: uppercase;
+	margin:auto;
+	color: black;
+}
+
+#note_blue{
+	background-color: #d9edf7;
+}
+
+#note_blue, #note_red, #note_green{
+	width: 20px;
+	height: 20px;
+	border: 1px solid white;
+	display: block;
+    float: right;
+    margin: 5px;
+    margin-top: 12px;
+}
+
+#notif_cont_exam{
+	color: #ce3192;
+    background-color: #e28ec2;
+    font-size: 18px;
+}
+
+#notif_cont_proy{
+	color: #1225b7;
+    background-color: #8e98e2;
+    font-size: 18px;
+}
+
+#notif_cont_pract{
+	color: #b78012;
+    background-color: #e0c898;
+    font-size: 18px;
+}
+
+#notif_cont_exerc{
+	color: #0d9618;
+    background-color: #a8dbad;
+    font-size: 18px;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+#subj_teach{
+	text-align: center;
+}
+
+#subject_t{
+    margin-right: 20px;
+}
+
+#information{
+	margin-left: 10px;
+    display: inline-table;
+}
+
+#info, #sbj_tch_btns {
+	margin-bottom: 5px;
+}
+
+#btn_edit{
+	margin: auto;
+    display: block;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #B71234;;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 50px;
+}
+
+.sidenav button, a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    display: block;
+    transition: 0.3s;
+    border: none;
+	background: none;
+	text-align: left;
+	cursor: pointer;
+	outline: none;
+}
+
+.sidenav button:hover, a:hover {
+    color: white;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav button {font-size: 18px;}
+}
